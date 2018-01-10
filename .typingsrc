@@ -1,0 +1,4 @@
+#proxy=http://username:password@proxy-ida.emea.adecco.net:8080
+#rejectUnauthorized=false
+#insecure=true
+#strict-ssl=true

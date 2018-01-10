@@ -1,0 +1,13 @@
+{
+    "widgets": [
+        {
+            "id": 1,
+            "name": "Small Red Widget",
+            "description": "A small, red widget",
+            "color": "#ff0000",
+            "size": "small",
+            "quantity": 2,
+            "price": 12.34
+        }
+    ]
+}
