@@ -12,7 +12,7 @@
         "noEmitHelpers": false,
         "sourceMap": true,
         "inlineSourceMap": false,
-        "suppresImplicitAnyIndexErrors": true,
+        "suppressImplicitAnyIndexErrors": true,
         "jsx": "react"
     },
     "exclude": [

@@ -3,7 +3,16 @@
   "version": "1.0.0",
   "description": "Getting started with React Project",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "start": "npm run clean && npm run webpack && concurrently \"npm run webpack:w\" \"npm run web\" \"npm run rest\"",
+    "postinstall": "npm run typings",
+    "typings": "typings install",
+    "clean": "rimraf dist",
+    "web": "webpack-dev-server",
+    "rest": "json-server --watch --port 3010 db.json",
+    "webpack:w": "webpack --watch",
+    "webpack": "webpack"
+  },
   "keywords": [
     "react",
     "typescript"
@@ -41,6 +50,8 @@
     "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {
+    "@types/react": "^16.0.34",
+    "@types/react-dom": "^16.0.3",
     "babel-eslint": "^8.2.1",
     "concurrently": "^3.5.1",
     "json-server": "^0.12.1",
