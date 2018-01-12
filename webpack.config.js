@@ -28,7 +28,7 @@ module.exports = {
             },
             {
                 test: /\.json$/,
-                loader: 'json'
+                loader: 'json-loader'
             },
             {
                 test: /\.scss$/,
@@ -45,7 +45,7 @@ module.exports = {
     plugins: [
         new ProvidePlugin({
             'Promise': 'es6-promise',
-            'fetch': 'imports?this=>global!exports?global.fetch!watwg-fetch'
+            'fetch': 'imports-loader?this=>global!exports-loader?global.fetch!whatwg-fetch'
         }),
         new CopyWebpackPlugin([{
             from: path.join(srcFolder, 'images'),
@@ -69,7 +69,7 @@ module.exports = {
         port: 5000,
         proxy: {
             '/widgets': {
-                target: 'http://0.0.0.0.:3010'
+                target: 'http://localhost:3010'
             }
         }
     }

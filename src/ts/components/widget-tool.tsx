@@ -1,10 +1,38 @@
 import * as React from "react";
 
-export class WidgetTool extends React.Component<{}, {}> {
+import { Widget } from "../models/widget";
+
+interface WidgetToolProps {
+    widgets: Widget[];
+}
+
+export class WidgetTool extends React.Component<WidgetToolProps, {}> {
+    // public static propTypes = {
+    //     widgets: React.PropTypes.arrayOf(
+    //         React.PropTypes.instanceOf(Widget),
+    //     ),
+    // };
+
+    public static defaultProps = {
+        widgets: [] as Widget[],
+    };
+
+    private wrapperStyle: any;
+
+    constructor(props: WidgetToolProps) {
+        super(props);
+
+        this.wrapperStyle = {
+            border: "1px solid lightgray",
+            margin: "10px",
+            padding: "5px",
+        };
+    }
+
     public render() {
-        return <div>
-            <h1>Widget Tool!</h1>
-            <table>
+        return <div style={this.wrapperStyle}>
+            <h1>Widget Tool</h1>
+            <table className="table table-striped">
                 <thead>
                     <tr>
                         <th>Name</th>
@@ -15,13 +43,15 @@ export class WidgetTool extends React.Component<{}, {}> {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Widget 1</td>
-                        <td>#ffffff</td>
-                        <td>Small</td>
-                        <td>2</td>
-                        <td>1.23</td>
-                    </tr>
+                    {this.props.widgets.map(
+                        (widget: Widget) => <tr key={widget.id}>
+                            <th>{widget.name}</th>
+                            <th>{widget.color}</th>
+                            <th>{widget.size}</th>
+                            <th>{widget.quantity}</th>
+                            <th>{widget.price}</th>
+                        </tr>,
+                    )}
                 </tbody>
             </table>
         </div>;
