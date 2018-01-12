@@ -1,12 +1,10 @@
+import "core-js";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
-class HelloWorld extends React.Component<{}, {}> {
-    public render() {
-        return <h1>Hello World!!!</h1>;
-    }
-}
+import { WidgetTool } from "./components/widget-tool";
 
+// import "bootstrap";
 import "../scss/styles.scss";
 
-ReactDOM.render(<HelloWorld />, document.querySelector("main"));
+ReactDOM.render(<WidgetTool />, document.querySelector("main"));
