@@ -1,10 +1,12 @@
 import * as React from "react";
 
 import { Widget } from "../models/widget";
+import { WidgetForm } from "./widget-form";
 import { WidgetTable } from "./widget-table";
 
 interface WidgetToolProps {
     widgets: Widget[];
+    addWidget: (widget: Widget) => void;
 }
 
 export class WidgetTool extends React.Component<WidgetToolProps, {}> {
@@ -34,6 +36,8 @@ export class WidgetTool extends React.Component<WidgetToolProps, {}> {
         return <div style={this.wrapperStyle}>
             <h1>Widget Tool</h1>
             <WidgetTable {...this.props} />
+            <h2>Create Widget</h2>
+            <WidgetForm addWidget={this.props.addWidget} />
         </div>;
     }
 }

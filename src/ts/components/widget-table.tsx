@@ -1,8 +1,10 @@
 import * as React from "react";
 
 import { WidgetTableCols } from "../enums/widget-table-cols";
+import { FormState } from "../models/form-state";
 import { FormControlEvent } from "../models/from-control-event";
 import { Widget } from "../models/widget";
+import { BaseForm } from "./base-form";
 import { WidgetTableFilter } from "./widget-table-filter";
 import { WidgetTableRow } from "./widget-table-row";
 
@@ -10,13 +12,13 @@ interface WidgetTableProps {
     widgets: Widget[];
 }
 
-interface WidgetTableState {
+interface WidgetTableState extends FormState {
     filterColumn?: WidgetTableCols;
     filterValue?: string;
     sortCol?: WidgetTableCols;
 }
 
-export class WidgetTable extends React.Component<WidgetTableProps, WidgetTableState> {
+export class WidgetTable extends BaseForm<WidgetTableProps, WidgetTableState> {
     // public static propTypes = {
     //     widgets: React.PropTypes.arrayOf(
     //         React.PropTypes.instanceOf(Widget),
@@ -35,8 +37,6 @@ export class WidgetTable extends React.Component<WidgetTableProps, WidgetTableSt
             filterValue: "",
             sortCol: WidgetTableCols.None,
         };
-
-        this.onChange = this.onChange.bind(this);
     }
 
     public render() {
@@ -100,10 +100,5 @@ export class WidgetTable extends React.Component<WidgetTableProps, WidgetTableSt
             .toString()
             .toLowerCase()
             .includes(this.state.filterValue.toLowerCase());
-    }
-
-    private onChange(e: FormControlEvent) {
-        // tslint:disable-next-line:no-object-literal-type-assertion
-        this.setState({ [e.currentTarget.name]: e.currentTarget.value } as WidgetTableState);
     }
 }
