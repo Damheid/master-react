@@ -5,17 +5,21 @@ import { FormState } from "../models/form-state";
 import { FormControlEvent } from "../models/from-control-event";
 import { Widget } from "../models/widget";
 import { BaseForm } from "./base-form";
+import { WidgetTableEditRow } from "./widget-table-edit-row";
 import { WidgetTableFilter } from "./widget-table-filter";
-import { WidgetTableRow } from "./widget-table-row";
+import { WidgetTableViewRow } from "./widget-table-view-row";
 
 interface WidgetTableProps {
     widgets: Widget[];
+    saveWidget: (widget: Widget) => Promise<Widget>;
+    deleteWidget: (widgetId: number) => Promise<Widget>;
 }
 
 interface WidgetTableState extends FormState {
     filterColumn?: WidgetTableCols;
     filterValue?: string;
     sortCol?: WidgetTableCols;
+    editWidgetId?: number;
 }
 
 export class WidgetTable extends BaseForm<WidgetTableProps, WidgetTableState> {
@@ -36,6 +40,7 @@ export class WidgetTable extends BaseForm<WidgetTableProps, WidgetTableState> {
             filterColumn: WidgetTableCols.None,
             filterValue: "",
             sortCol: WidgetTableCols.None,
+            editWidgetId: -1,
         };
     }
 
@@ -63,7 +68,14 @@ export class WidgetTable extends BaseForm<WidgetTableProps, WidgetTableState> {
                 </thead>
                 <tbody>
                     {this.props.widgets.filter(this.filterFn).sort(this.getSortFn()).map(
-                        (widget: Widget) => <WidgetTableRow key={widget.id} widget={widget} />)}
+                        (widget: Widget) => this.state.editWidgetId === widget.id
+                            ? <WidgetTableEditRow key={widget.id} widget={widget}
+                                saveWidget={this.saveWidget}
+                                cancelWidget={this.cancelWidget} />
+                            : <WidgetTableViewRow key={widget.id} widget={widget}
+                                editWidget={this.editWidget}
+                                deleteWidget={this.deleteWidget} />,
+                    )}
                 </tbody>
             </table>
         </div>;
@@ -100,5 +112,31 @@ export class WidgetTable extends BaseForm<WidgetTableProps, WidgetTableState> {
             .toString()
             .toLowerCase()
             .includes(this.state.filterValue.toLowerCase());
+    }
+
+    private editWidget = (widgetId: number) => {
+        this.setState({
+            editWidgetId: widgetId,
+        });
+    }
+
+    private cancelWidget = () => {
+        this.setState({
+            editWidgetId: -1,
+        });
+    }
+
+    private deleteWidget = (widgetId: number) => {
+        this.props.deleteWidget(widgetId)
+            .then(() => this.setState({
+                editWidgetId: -1,
+            }));
+    }
+
+    private saveWidget = (widget: Widget) => {
+        this.props.saveWidget(widget)
+            .then(() => this.setState({
+                editWidgetId: -1,
+            }));
     }
 }

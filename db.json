@@ -37,13 +37,13 @@
       "price": 21.67
     },
     {
-      "name": "Test",
+      "id": 5,
+      "name": "New Widget",
       "description": "Test",
-      "color": "#408080",
-      "size": "medium",
+      "color": "#ff8040",
+      "size": "huge",
       "quantity": 3,
-      "price": 3,
-      "id": 5
+      "price": 50.3
     }
   ]
 }

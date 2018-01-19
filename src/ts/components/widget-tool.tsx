@@ -6,7 +6,8 @@ import { WidgetTable } from "./widget-table";
 
 interface WidgetToolProps {
     widgets: Widget[];
-    addWidget: (widget: Widget) => void;
+    saveWidget: (widget: Widget) => Promise<Widget>;
+    deleteWidget: (widgetId: number) => Promise<Widget>;
 }
 
 export class WidgetTool extends React.Component<WidgetToolProps, {}> {
@@ -37,7 +38,7 @@ export class WidgetTool extends React.Component<WidgetToolProps, {}> {
             <h1>Widget Tool</h1>
             <WidgetTable {...this.props} />
             <h2>Create Widget</h2>
-            <WidgetForm addWidget={this.props.addWidget} />
+            <WidgetForm addWidget={this.props.saveWidget} />
         </div>;
     }
 }
